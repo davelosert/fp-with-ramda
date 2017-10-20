@@ -5,21 +5,21 @@ const andElse = T;
 describe('Complex FP with Ramda', () => {
   const selectedProductIds = [1, 2, 3];
   const products: any[] = [
-    { id: 0, price: 3, inStock: false, type: 'sellable' },
-	{ id: 1, price: 4, inStock: true, type: 'sellable' }, // applies to all criteria
-	{ id: 2, price: 5, inStock: true, type: 'sellable' }, // applies to all criteria
-	{ id: 3, price: 2, inStock: true, type: 'deliverable' },
-	{ id: 4, price: 5, inStock: true, type: 'deliverable' }
+	{id: 0, price: 3, inStock: false, type: 'sellable'},
+	{id: 1, price: 4, inStock: true, type: 'sellable'}, // applies to all criteria
+	{id: 2, price: 5, inStock: true, type: 'sellable'}, // applies to all criteria
+	{id: 3, price: 2, inStock: true, type: 'deliverable'},
+	{id: 4, price: 5, inStock: true, type: 'deliverable'}
   ];
 
-
   const inSelected = flip(contains)(selectedProductIds);
-  const isPriceRelevant = where({
-	id: inSelected,
-	type: equals('sellable'),
-	inStock: equals(true)
-  });
-  const filterPriceRelevantProducts: (products: any[]) => any[] = filter(isPriceRelevant);
+  const filterPriceRelevantProducts: (products: any[]) => any[] =
+	filter(where({
+	  id: inSelected,
+	  type: equals('sellable'),
+	  inStock: equals(true)
+	}) as (any: any) => boolean);
+
   it('only leaves products which have id in selected, have type sellable and have inStock = true', () => {
 	const result = filterPriceRelevantProducts(products);
 	expect(result).to.have.lengthOf(2)
@@ -31,7 +31,6 @@ describe('Complex FP with Ramda', () => {
 	const result = getPrices([{price: 2}, {price: 4}]);
 	expect(result).to.eql([2, 4]);
   });
-
 
   const appendStr = curry((append, price) => `${price} ${append}`);
   const appendDollarTextForPrice = cond([
@@ -49,10 +48,9 @@ describe('Complex FP with Ramda', () => {
 
   it('returns string "4 Dollars" for 4', () => {
 	expect(appendDollarTextForPrice(4)).to.equal('4 Dollars');
-  });
+});
 
-
-  const priceSumSelectedProducts = pipe(
+const priceSumSelectedProducts = pipe(
 	filterPriceRelevantProducts,
 	getPrices,
 	sum,
