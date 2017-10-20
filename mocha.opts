@@ -1,0 +1,4 @@
+--compilers ts:ts-node/register
+--compilers tsx:ts-node/register
+test/mocha-globals.js
+src/**/*.spec.ts

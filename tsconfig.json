@@ -1,0 +1,31 @@
+{
+  "compilerOptions" : {
+    "allowJs" : true,
+    "module" : "CommonJS",
+    "moduleResolution" : "Node",
+    "noImplicitAny" : false,
+    "sourceMap" : true,
+    "suppressImplicitAnyIndexErrors" : true,
+    "lib" : [ "es2015", "es2017"],
+    "target" : "ES5",
+    "experimentalDecorators" : true,
+    "allowUnreachableCode" : true
+  },
+  "typeRoots" : [
+    "node_modules/@types"
+  ],
+  "types" : [
+    "async",
+    "mocha",
+    "node",
+    "chai",
+    "sinon",
+    "sinon-chai"
+  ],
+  "exclude" : [
+    "node_modules",
+    "**/*.spec.ts",
+    "**/*.spec.tsx"
+  ]
+}
+
