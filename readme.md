@@ -22,10 +22,9 @@ However, I want to show how with little knowledge you can already achieve great 
 - Basically a utility library like lodash & underscore, but based on FP principles
 - main difference: While the latter expect the data to work upon FIRST and then the callback, ramda turns it around, e.g:
 
-```
+```JavaScript
 _.forEach([1,2,3], (val) => console.log(val));
 ramda.forEach((val) =>  console.log(val), [1,2,3]);
-
 ```
 
 - To understand *why* it does it and what great advantages this brings, I'll have to explain currying first:
@@ -34,8 +33,7 @@ ramda.forEach((val) =>  console.log(val), [1,2,3]);
 Currying is the process of applying the arguments of a function in several function calls instead of all at once.
 The functions logic only gets executed as soon as ALL arguments where applied. This is best explained by example:
 
-```
-
+```JavaScript
 // A normal function with two arguments
 const myFunction = (param1, param2) => { console.log(`I got called with ${param1} ${param2}` };
 myFunction('Hello', 'World') // I got called with Hello World
