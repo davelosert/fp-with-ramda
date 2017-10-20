@@ -32,7 +32,7 @@ ramda.forEach((val) =>  console.log(val), [1,2,3]);
 
 ### Currying
 Currying is the process of applying the arguments of a function in several function calls instead of all at once.
-The functions logic only gets executed as soon as ALL arguments where applied. This is best explaiend by example:
+The functions logic only gets executed as soon as ALL arguments where applied. This is best explained by example:
 
 ```
 
@@ -44,8 +44,29 @@ myFunction('Hello', 'World') // I got called with Hello World
 import {curry} from 'ramda';
 const myCurriedFunction = curry(myFunction);
 const myCurriedHelloFunction = myCurriedFunction('Hello'); // does NOT execute the function, but stores the first arugment
-
+// ... do other things and then later
+myCurriedHellFunction('World') // now prints 'I got called with Hello World');
 ```
 
+Ramda curries every of it's function by default.
+Why is this relevant? The answer: **function composition**
+
+### Composition
+- The main focus of ramda is to compose multiple simple functions to complex business logic **BEFORE** applying those functions.
+- This enables a high level of reusability, modularization and simplicity as you build complexity out of usually really simple things
+- Have a look at the [simple.spec.ts](./src/simple.spec.ts) to see a simple function composition
 
 
+#### Complex example
+Think about the following use case in a project:
+
+> The price for all selected products should be calculated and displayed as followed:
+> \- take all price relevant products. Price relevant means: they are selected, are in stock and have type "sellable"
+> \- sum up the the prices of all those products
+> \- if sum is 0, return nothing, if 1, append "Dollar", else append "Dollars"
+
+
+### Disadvantages
+- Takes some time to get into the ramda-thinking
+- Sometimes really hard to achieve the right result with the functions
+- With Typescript, you need to explicitly set types of some functions to not have compiler errors
